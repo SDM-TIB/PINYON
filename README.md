@@ -16,7 +16,7 @@ Once all the scripts finish executing, we need to obtain the tweets' original te
 
 ## Embeddings download
 
-The embedding for each corresponsing KG need to be downladed and placed in embedding/data/ directory
+The embedding for each corresponding KG needs to be downloaded and placed in the embedding/data/ directory
 
 [DBpedia](http://data.dws.informatik.uni-mannheim.de/kgvec2go/iswc/dbpedia_500_4_sg_200/)
 
