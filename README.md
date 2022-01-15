@@ -13,6 +13,17 @@ After downloading the tweets dataset, we need to execute the three scripts in th
 
 Once all the scripts finish executing, we need to obtain the tweets' original text. This can be done using [Hydrator](https://github.com/DocNow/hydrator/releases/download/v0.3.0/Hydrator-Setup-0.3.0.exe)
 
+
+## Embeddings download
+
+The embedding for each corresponsing KG need to be downladed and placed in embedding/data/ directory
+
+[DBpedia](http://data.dws.informatik.uni-mannheim.de/kgvec2go/iswc/dbpedia_500_4_sg_200/)
+
+[Wikidata](https://zenodo.org/record/827339#.YeMlCP7MJD8)
+
+[UMLS](https://tib.eu/cloud/s/smHP3TTR9Z6B9XH)
+
 ## The PINYON SCD Approach
 
 Now that we have all the necessary data, we can run the PINYON approach against the three KGs (UMLS, Wikidata, and DBpedia).
