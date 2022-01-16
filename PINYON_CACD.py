@@ -3,7 +3,7 @@
 
 import graph
 
-def scd(ADT):
+def cacd(ADT):
     selected_vertex=graph.sort_by_degree(ADT)[0]
 
 
