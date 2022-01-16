@@ -5,7 +5,7 @@ import csv
 from tqdm import tqdm
 from embedding import embd_umls
 import graph
-from PINYON_scd import scd
+from PINYON_CACD import cacd
 from tweets_process import tweets_helper
 
 def edge_similarity(e1,e2):
@@ -109,7 +109,7 @@ for i in tqdm(range(len(nodes))):
 
 
 
-vertex_coloring=scd(complement_graph)
+vertex_coloring=cacd(complement_graph)
 unique_colors=dict()
 for key,value in vertex_coloring.items():
     if value not in unique_colors:
