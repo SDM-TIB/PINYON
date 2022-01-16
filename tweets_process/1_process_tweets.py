@@ -13,7 +13,7 @@ with open(filename, 'r' , encoding='utf-8') as file:
 tweets=[]   
 tweets_ids=[]
  
-for row in tqdm(rows[:50]):
+for row in tqdm(rows):
     final_entities=''
     tweet_id=row[0]
     tweets_ids.append(tweet_id)
