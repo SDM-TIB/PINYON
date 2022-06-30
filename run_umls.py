@@ -69,12 +69,12 @@ for e in post_entities:
     for e_c in all_entities:
         nodes.append(e+';'+e_c)
 
-#complement_graph_=[]
-
 nodes=list(set(nodes))
 complement_graph=graph.graph()  
 similarity_max=0
+counter=0
 for i in tqdm(range(len(nodes))):
+    complement_graph.append(nodes[i],nodes[i],0)
     for j in range(len(nodes)):
         
         if j<i:
@@ -82,7 +82,6 @@ for i in tqdm(range(len(nodes))):
         
         if i==j:
             continue
-        
         
         
         n1_entities=nodes[i].split(';')
@@ -96,17 +95,26 @@ for i in tqdm(range(len(nodes))):
 
         similarity=edge_similarity(nodes[i],nodes[j])
         
-        if similarity > similarity_max:
-            similarity_max=similarity
         
             
         if n1_start!=n2_start and n1_end!=n2_end:
             complement_graph.append(nodes[i],nodes[j],0)
+            complement_graph.append(nodes[j],nodes[i],0)
+            
+        
+            counter+=1
         else:
-            if similarity<0.50:
+            if similarity<0.80:
                 complement_graph.append(nodes[i],nodes[j],0)
+                complement_graph.append(nodes[j],nodes[i],0)
+            
+                counter+=1
+
+            
+complement_graph=graph.prune_graph(complement_graph)
 
 
+graph.serialize_graph(complement_graph,"graphs/umls_graph.sif")
 
 
 vertex_coloring=cacd(complement_graph)
@@ -128,7 +136,7 @@ for key,value in unique_colors.items():
             community_similarity+=edge_similarity(value[i],value[j])
             counter+=1
     if len(value)==1:
-        community_similarity=edge_similarity(value[0],value[0])
+        community_similarity=embd_umls.get_similarity(value[0].split(';')[0],value[0].split(';')[1])
     else:
         community_similarity=community_similarity/counter
     colors_similarity[key]=community_similarity
@@ -139,7 +147,7 @@ community_similarity_ordered=sorted(colors_similarity.items(), key=lambda x: x[1
 returned_posts=dict()
 
 for community in community_similarity_ordered:
-    if community[1]>0.50:
+    if community[1]>0.60:
         for edge in unique_colors[community[0]]:
             mentions=tweets_helper.edge_2_mention(edge,'umls')
             if mentions!="":
@@ -147,6 +155,8 @@ for community in community_similarity_ordered:
                     posts=tweets_helper.mention_2_post(mention)
                     if posts!="":
                         for post in posts:
+                            if post =="":
+                                continue
                             if post not in returned_posts:
                                 returned_posts[post]=[]
                             if mention not in returned_posts[post]:
@@ -157,8 +167,9 @@ ranked_posts=sorted(returned_posts, key=lambda k: len(returned_posts[k]), revers
 
 ranked_posts_text=[]
 for post in ranked_posts:
-    ranked_posts_text.append(tweets_helper.post_2_text(post))
+    post_text=tweets_helper.post_2_text(post)
+    if post_text !="":
+        ranked_posts_text.append(tweets_helper.post_2_text(post))
                 
-        
 
 

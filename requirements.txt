@@ -1,0 +1,7 @@
+tqdm
+csv
+requests
+multiprocessing.poo
+re
+gensim.models
+scipy

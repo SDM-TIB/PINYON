@@ -69,7 +69,7 @@ class graph:
     
     def remove(self,vertexid):  
         """remove a particular vertex and its underlying edges"""
-        for i in self.graph[vertexid].keys():
+        for i in list(self.graph[vertexid].keys()):
             self.graph[i].pop(vertexid)
         self.graph.pop(vertexid)
         
@@ -98,3 +98,25 @@ def sort_by_degree(ADT):
     output=[i[0] for i in sorted(dic.items(), key=lambda x:x[1])]
     
     return output[::-1]
+
+def prune_graph(ADT):
+    """ remove all vertics that have a degree of n-1; n is the number of nodes """
+    for i in ADT.vertex():
+        if ADT.degree(i)== len(ADT.graph):
+            ADT.remove(i)
+    for i in ADT.vertex():
+        if ADT.degree(i) > 1:
+            ADT.disconnect(i,i)
+            
+    return ADT
+
+
+def serialize_graph(ADT,path):
+    nodes_dict=dict()
+    with open(path, "w", encoding="utf-8") as output:
+        for i in ADT.vertex():
+            for edge in ADT.edge(i):
+                if edge+i not in nodes_dict:
+                    nodes_dict[i+edge]=""
+                    output.write(i+"	pp	"+edge+"\r\n")
+    
