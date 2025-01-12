@@ -22,7 +22,7 @@ The embedding for each corresponding KG needs to be downloaded and placed in the
 
 [Wikidata](https://zenodo.org/record/827339#.YeMlCP7MJD8)
 
-[UMLS](https://tib.eu/cloud/s/smHP3TTR9Z6B9XH)
+[UMLS](https://tib.eu/cloud/s/7MWfDRnNrNBLJ33)
 
 ## The PINYON SCD Approach
 
